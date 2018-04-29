@@ -1,50 +1,48 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <script>
-
-        function updateEmployerBox(){
-            var div=$('employerBox');
-            var url='<%=appRootPath%>/userBoxHome.asp?isEmployer=true&ajaxLogin=home';
-            var options = {
-                method:'get',
-                onSuccess: function(transport){
-                    div.innerHTML=transport.responseText;
-                },
-                onFailure: function(transport){
-                    alert('Failed '+transport.responseText);
-                }
-            };//end options
-            new Ajax.Request(url,options);
-        }
-
-        function yHandler(){
-            // Watch video for line by line explanation of the code
-            // http://www.youtube.com/watch?v=eziREnZPml4
-            var wrap = document.getElementById('wrap');
-            var contentHeight = wrap.offsetHeight;
-            var yOffset = window.pageYOffset;
-            var y = yOffset + window.innerHeight;
-            if(y >= contentHeight){
-                // Ajax call to get more dynamic data goes here
-               // wrap.innerHTML += '<div id="wrap"><img src="images/2.png"></div>';
-                $.ajax({ url: 'https://www.google.com', cache: false, success: function(data) { alert(data); } });
-                wrap.innerHTML += data;
-            }
-            var status = document.getElementById('status');
-            status.innerHTML = contentHeight+" | "+y;
-        }
-        window.onscroll = yHandler;
-    </script>
-    <style>
-        div#status{position:fixed; font-size:24px;}
-        div#wrap{width:300px; margin:0px auto;}
-        div.newData{height:300px; background:#09F; margin:10px 0px;}
-    </style>
-</head>
 <body>
-<div id="status">0 | 0</div>
-<div id="wrap"><img src="images/1.png"></div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="javascript/html.js"></script>
+
+<h2>Use the XMLHttpRequest to get the content of a file.</h2>
+<p>The content is written in JSON format, and can easily be converted into a JavaScript object.</p>
+<p>Take a look at <img src=images/4.png></p>
+<p id="wrap"></p>
+
+<script>
+
+    var client = new HttpClient();
+    var images;
+    var i = 0;
+
+    function getMoreImages(){
+        client.get('test-files/images.json', function(response) {
+            images = JSON.parse(response)["images"];
+            i = 0;
+        });
+    }
+    getMoreImages();
+
+    function yHandler(){
+        var wrap = document.getElementById('wrap');
+        var contentHeight = wrap.offsetHeight;
+        var yOffset = window.pageYOffset;
+        var y = yOffset + window.innerHeight;
+        if(y >= contentHeight){
+            wrap.innerHTML += '<div><img src=' + images[i]["url"] + '></div>';
+            i++;
+
+            if(i >= 9) {
+                getMoreImages();
+            }
+        }
+    }
+    window.onscroll = yHandler;
+
+</script>
+
 </body>
 </html>
+
+
+
+
