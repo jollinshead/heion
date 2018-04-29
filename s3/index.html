@@ -3,42 +3,136 @@
 <body>
 <script src="javascript/html.js"></script>
 
-<h2>Use the XMLHttpRequest to get the content of a file.</h2>
 <p>The content is written in JSON format, and can easily be converted into a JavaScript object.</p>
-<p>Take a look at <img src=images/4.png></p>
-<p id="wrap"></p>
+<h2 id="title">平穏</h2>
+<div id="search">
+    <p><input id="searchField" type="text" name="firstname" placeholder="何">
+</div>
+<div id="wrap">--</div>
 
 <script>
 
+    var wrap = document.getElementById('wrap');
     var client = new HttpClient();
     var images;
     var i = 0;
 
     function getMoreImages(){
-        client.get('test-files/images.json', function(response) {
+        client.get('test-files/all-images.json', function(response) {
             images = JSON.parse(response)["images"];
             i = 0;
         });
     }
     getMoreImages();
 
+    function searchInvoked(text){
+        if (text === "blah") {
+            client.get('test-files/some-images.json', function(response) {
+                images = JSON.parse(response)["images"];
+                i = 0;
+            });
+        } else {
+            getMoreImages()
+        }
+
+        wrap.innerHTML = "";
+    }
+
+    // return if another image is available
+    function addNextImage(){
+        if(i < images.length - 1) {
+            wrap.innerHTML += '<div><img id="scrollingImage" src=' + images[i]["url"] + '></div>';
+            i++;
+        } return i < images.length - 1;
+    }
+
     function yHandler(){
-        var wrap = document.getElementById('wrap');
         var contentHeight = wrap.offsetHeight;
         var yOffset = window.pageYOffset;
         var y = yOffset + window.innerHeight;
         if(y >= contentHeight){
-            wrap.innerHTML += '<div><img src=' + images[i]["url"] + '></div>';
-            i++;
+            addNextImage();
 
-            if(i >= 9) {
+            if(i >= images.length - 1) {
                 getMoreImages();
             }
         }
     }
-    window.onscroll = yHandler;
 
+    // function populateWithImages(){
+    //     var contentHeight = wrap.offsetHeight;
+    //     var yOffset = window.pageYOffset;
+    //     var y = yOffset + window.innerHeight;
+    //     var isgood = addNextImage();
+    //     //while(isgood){ document.getElementById('searchField')
+    //         document.getElementById('title').title += "fs";
+    //    // }
+    // }
+    // populateWithImages();
+
+    wrap.innerHTML += '<div>sdad</div>';
+
+    document.getElementById("searchField")
+            .addEventListener("keyup", function(event) {
+                event.preventDefault();
+                if (event.keyCode === 13) {
+                    searchInvoked(document.getElementById('searchField').value)
+                }
+            });
+
+
+    window.onscroll = yHandler;
 </script>
+
+<style>
+    body{overflow-y: scroll; }
+    img#scrollingImage{object-fit:contain; border-radius: 1%; max-width:80%; min-width:80%; margin-left:10%; margin-right: 10%;}
+    div#wrap{
+        max-width:500px;
+        position:center;
+        background-color: gold;
+        margin:0 auto;
+    }
+    div#search{
+        position: sticky;
+        top: 0;
+        background-color: white;
+        border: 1px solid white;
+    }
+    input#searchField{
+        line-height: 30px;
+        width: 70%;
+        display: block;
+        margin:0 auto;
+        text-align: center;
+        border: 2px solid #EEEEEE;
+        font-size: 20px;
+        outline-color: #DDDDDD;
+        color: #222222;
+        font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    }
+    ::placeholder {
+        color: #DDDDDD;
+    }
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        background: #FFFFFF;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: #C9C9C9;
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #BBBBBB;
+    }
+</style>
 
 </body>
 </html>
