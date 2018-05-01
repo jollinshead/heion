@@ -1,50 +1,142 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <script>
-
-        function updateEmployerBox(){
-            var div=$('employerBox');
-            var url='<%=appRootPath%>/userBoxHome.asp?isEmployer=true&ajaxLogin=home';
-            var options = {
-                method:'get',
-                onSuccess: function(transport){
-                    div.innerHTML=transport.responseText;
-                },
-                onFailure: function(transport){
-                    alert('Failed '+transport.responseText);
-                }
-            };//end options
-            new Ajax.Request(url,options);
-        }
-
-        function yHandler(){
-            // Watch video for line by line explanation of the code
-            // http://www.youtube.com/watch?v=eziREnZPml4
-            var wrap = document.getElementById('wrap');
-            var contentHeight = wrap.offsetHeight;
-            var yOffset = window.pageYOffset;
-            var y = yOffset + window.innerHeight;
-            if(y >= contentHeight){
-                // Ajax call to get more dynamic data goes here
-               // wrap.innerHTML += '<div id="wrap"><img src="images/2.png"></div>';
-                $.ajax({ url: 'https://www.google.com', cache: false, success: function(data) { alert(data); } });
-                wrap.innerHTML += data;
-            }
-            var status = document.getElementById('status');
-            status.innerHTML = contentHeight+" | "+y;
-        }
-        window.onscroll = yHandler;
-    </script>
-    <style>
-        div#status{position:fixed; font-size:24px;}
-        div#wrap{width:300px; margin:0px auto;}
-        div.newData{height:300px; background:#09F; margin:10px 0px;}
-    </style>
-</head>
 <body>
-<div id="status">0 | 0</div>
-<div id="wrap"><img src="images/1.png"></div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="javascript/html.js"></script>
+
+<p>The content is written in JSON format, and can easily be converted into a JavaScript object.</p>
+<h2 id="title">平穏</h2>
+<div id="search">
+    <p><input id="searchField" type="text" name="firstname" placeholder="何">
+</div>
+<div id="wrap">--</div>
+
+<script>
+
+    var wrap = document.getElementById('wrap');
+    var client = new HttpClient();
+    var images;
+    var i = 0;
+
+    function getMoreImages(){
+        client.get('test-files/all-images.json', function(response) {
+            images = JSON.parse(response)["images"];
+            i = 0;
+        });
+    }
+    getMoreImages();
+
+    function searchInvoked(text){
+        if (text === "blah") {
+            client.get('test-files/some-images.json', function(response) {
+                images = JSON.parse(response)["images"];
+                i = 0;
+            });
+        } else {
+            getMoreImages()
+        }
+
+        wrap.innerHTML = "";
+    }
+
+    // return if another image is available
+    function addNextImage(){
+        if(i < images.length - 1) {
+            wrap.innerHTML += '<div><img id="scrollingImage" src=' + images[i]["url"] + '></div>';
+            i++;
+        } return i < images.length - 1;
+    }
+
+    function yHandler(){
+        var contentHeight = wrap.offsetHeight;
+        var yOffset = window.pageYOffset;
+        var y = yOffset + window.innerHeight;
+        if(y >= contentHeight){
+            addNextImage();
+
+            if(i >= images.length - 1) {
+                getMoreImages();
+            }
+        }
+    }
+
+    // function populateWithImages(){
+    //     var contentHeight = wrap.offsetHeight;
+    //     var yOffset = window.pageYOffset;
+    //     var y = yOffset + window.innerHeight;
+    //     var isgood = addNextImage();
+    //     //while(isgood){ document.getElementById('searchField')
+    //         document.getElementById('title').title += "fs";
+    //    // }
+    // }
+    // populateWithImages();
+
+    wrap.innerHTML += '<div>sdad</div>';
+
+    document.getElementById("searchField")
+            .addEventListener("keyup", function(event) {
+                event.preventDefault();
+                if (event.keyCode === 13) {
+                    searchInvoked(document.getElementById('searchField').value)
+                }
+            });
+
+
+    window.onscroll = yHandler;
+</script>
+
+<style>
+    body{overflow-y: scroll; }
+    img#scrollingImage{object-fit:contain; border-radius: 1%; max-width:80%; min-width:80%; margin-left:10%; margin-right: 10%;}
+    div#wrap{
+        max-width:500px;
+        position:center;
+        background-color: gold;
+        margin:0 auto;
+    }
+    div#search{
+        position: sticky;
+        top: 0;
+        background-color: white;
+        border: 1px solid white;
+    }
+    input#searchField{
+        line-height: 30px;
+        width: 70%;
+        display: block;
+        margin:0 auto;
+        text-align: center;
+        border: 2px solid #EEEEEE;
+        font-size: 20px;
+        outline-color: #DDDDDD;
+        color: #222222;
+        font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    }
+    ::placeholder {
+        color: #DDDDDD;
+    }
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        background: #FFFFFF;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: #C9C9C9;
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #BBBBBB;
+    }
+</style>
+
 </body>
 </html>
+
+
+
+
