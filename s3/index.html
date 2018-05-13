@@ -3,12 +3,10 @@
 <body>
 <script src="javascript/html.js"></script>
 
-<p>The content is written in JSON format, and can easily be converted into a JavaScript object.</p>
-<h2 id="title">平穏</h2>
-<div id="search">
-    <p><input id="searchField" type="text" name="firstname" placeholder="search">
+<div id="title">
+    <button id="titleText" onclick=" window.open(`html/about.html`);return false;">Kia ora!</button>
+    <!-- key your ah -->
 </div>
-<h2 id="title">平穏</h2>
 
 
 <div id="wrap"></div>
@@ -32,15 +30,23 @@
     function addNextImage(){
         if(i < images.length - 1) {
             wrap.innerHTML +=
-                    '<div class="scrollingImageContainer">\n' +
-                    '  <img class="scrollingImage" src=' + images[i]["url"] + '>' +
-                    '  <div class="buttonContainer">' +
-                    '    <button class="button" type="button" onclick=" window.open(`' + images[i]["url"] + ', \'_blank\'`)">大</button>\n' +
-                    '    <button class="button" type="button" onclick=" window.open(`' + images[i]["alt-url"] + ', \'_blank\'`)">図</button>\n' +
-                    '  </div>' +
+                    '<div class="scrollingImageContainer">' +
+                    '   <img class="scrollingImage" src=' + images[i]["url"] + ' onclick=" window.open(`' + images[i]["url"] + '`);return false;" >' +
+                    '   <button id="location" onclick=" window.open(`' + images[i]["alt-url"] + '`);return false;">' + images[i]["location"] + '</button>' +
+                    '   <br><br><br><br>' +
                     '</div>';
             i++;
         } return i < images.length - 1;
+    }
+
+    function init() {
+        // while((wrap.offsetHeight - window.innerHeight) <= 0) {
+        //     addNextImage();
+        // }
+        addNextImage();
+        addNextImage();
+        addNextImage();
+        addNextImage();
     }
 
     function yHandler(){
@@ -55,7 +61,7 @@
             }
         }
     }
-
+    window.onload = init;
     window.onscroll = yHandler;
 
 </script>
@@ -64,48 +70,42 @@
     body{overflow-y: scroll; }
     .scrollingImage{
         object-fit:contain;
-        border-radius: 1%;
-        max-width:80%;
-        min-width:80%;
+        border-radius: 0%;
+        max-width:100%;
+        min-width:100%;
     }
     .scrollingImageContainer{
         display: inline;
     }
 
-    .buttonContainer {
-        max-height: 40px;
-    }
-
-    .button {
-        text-align: center;
-        font-size: 20px;
+    button {
+        background:none;
+        border:none;
         font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-        margin: 5% 5% 5% 85%;
     }
 
     div#wrap{
         max-width:500px;
         position:center;
-        background-color: gold;
+        background-color: white;
         margin:0 auto;
     }
-    div#search{
+    div#title{
         position: sticky;
         top: 0;
         background-color: white;
         border: 1px solid white;
     }
-    input#searchField{
+    button#titleText{
         line-height: 30px;
         width: 70%;
         display: block;
         margin:0 auto;
         text-align: center;
-        border: 2px solid #EEEEEE;
+        /*border: 2px solid #EEEEEE;*/
         font-size: 20px;
-        outline-color: #DDDDDD;
+        outline-color: white;
         color: #222222;
-        font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
     }
 </style>
 
