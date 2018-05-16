@@ -1,0 +1,40 @@
+body{overflow-y: scroll; }
+.scrollingImage{
+    object-fit:contain;
+    border-radius: 0%;
+    max-width:100%;
+    min-width:100%;
+}
+.scrollingImageContainer{
+    display: inline;
+}
+
+button {
+    background:none;
+    border:none;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+
+div#wrap{
+    max-width:500px;
+    position:center;
+    background-color: white;
+    margin:0 auto;
+}
+div#title{
+    position: sticky;
+    top: 0;
+    background-color: white;
+    border: 1px solid white;
+}
+button#titleText{
+    line-height: 30px;
+    width: 70%;
+    display: block;
+    margin:0 auto;
+    text-align: center;
+    /*border: 2px solid #EEEEEE;*/
+    font-size: 20px;
+    outline-color: white;
+    color: #222222;
+}

@@ -1,114 +1,16 @@
 <!DOCTYPE html>
 <html>
-<body>
-<script src="javascript/html.js"></script>
+<body id="body">
 
 <div id="title">
     <button id="titleText" onclick=" window.open(`html/about.html`);return false;">Kia ora!</button>
     <!-- key your ah -->
 </div>
 
-
 <div id="wrap"></div>
 
-<script>
-
-    var wrap = document.getElementById('wrap');
-    var client = new HttpClient();
-    var images;
-    var i = 0;
-
-    function getMoreImages(){
-        client.get('static-db/images.json', function(response) {
-            images = JSON.parse(response)["images"];
-            i = 0;
-        });
-    }
-    getMoreImages();
-
-    // return if another image is available
-    function addNextImage(){
-        if(i < images.length - 1) {
-            wrap.innerHTML +=
-                    '<div class="scrollingImageContainer">' +
-                    '   <img class="scrollingImage" src=' + images[i]["url"] + ' onclick=" window.open(`' + images[i]["url"] + '`);return false;" >' +
-                    '   <button id="location" onclick=" window.open(`' + images[i]["alt-url"] + '`);return false;">' + images[i]["location"] + '</button>' +
-                    '   <br><br><br><br>' +
-                    '</div>';
-            i++;
-        } return i < images.length - 1;
-    }
-
-    function init() {
-        // while((wrap.offsetHeight - window.innerHeight) <= 0) {
-        //     addNextImage();
-        // }
-        addNextImage();
-        addNextImage();
-        addNextImage();
-        addNextImage();
-    }
-
-    function yHandler(){
-        var contentHeight = wrap.offsetHeight;
-        var yOffset = window.pageYOffset;
-        var y = yOffset + window.innerHeight;
-        if(y >= contentHeight){
-            addNextImage();
-
-            if(i >= images.length - 1) {
-                getMoreImages();
-            }
-        }
-    }
-    window.onload = init;
-    window.onscroll = yHandler;
-
-</script>
-
-<style>
-    body{overflow-y: scroll; }
-    .scrollingImage{
-        object-fit:contain;
-        border-radius: 0%;
-        max-width:100%;
-        min-width:100%;
-    }
-    .scrollingImageContainer{
-        display: inline;
-    }
-
-    button {
-        background:none;
-        border:none;
-        font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-    }
-
-    div#wrap{
-        max-width:500px;
-        position:center;
-        background-color: white;
-        margin:0 auto;
-    }
-    div#title{
-        position: sticky;
-        top: 0;
-        background-color: white;
-        border: 1px solid white;
-    }
-    button#titleText{
-        line-height: 30px;
-        width: 70%;
-        display: block;
-        margin:0 auto;
-        text-align: center;
-        /*border: 2px solid #EEEEEE;*/
-        font-size: 20px;
-        outline-color: white;
-        color: #222222;
-    }
-</style>
-
+<script src="javascript/html.js"></script>
+<link rel="stylesheet" href="css/html.css" type="text/css">
 </body>
 </html>
 
