@@ -34,15 +34,8 @@ function addNextImage(){
             '   <br><br><br><br>' +
             '</div>';
         i++;
-    } return i < images.length - 1;
-}
-
-function init() {
-    var diff = wrap.offsetHeight - window.innerHeight;
-    yHandler();
-    diff -= wrap.offsetHeight - window.innerHeight;
-    for(var ii = 0; ii < (wrap.offsetHeight - window.innerHeight) / diff; ++ii) {
-        yHandler();
+    } else {
+        getMoreImages();
     }
 }
 
@@ -52,11 +45,19 @@ function yHandler(){
     const y = yOffset + window.innerHeight;
     if(y >= contentHeight){
         addNextImage();
-
-        if(i >= images.length - 1) {
-            getMoreImages();
-        }
     }
 }
+
+
+function init() {
+    var diff = window.innerHeight - wrap.offsetHeight;
+    addNextImage();
+    diff -= window.innerHeight - wrap.offsetHeight;
+    var numImages = window.innerHeight / diff;
+    for(var ii = 0; ii <= numImages; ++ii) {
+        addNextImage();
+    }
+}
+
 window.onload = init;
 window.onscroll = yHandler;
