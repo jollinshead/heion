@@ -31,7 +31,7 @@ function addNextImage(){
             '<div class="scrollingImageContainer">' +
             '   <img class="scrollingImage" src=' + images[i]["url"] + ' onclick=" window.open(`' + images[i]["url"] + '`);return false;" >' +
             '   <button id="location" onclick=" window.open(`' + images[i]["alt-url"] + '`);return false;">' + images[i]["location"] + '</button>' +
-            '   <br><br><br><br>' +
+            '   <br><br><br><br><br><br>' +
             '</div>';
         i++;
     } else {

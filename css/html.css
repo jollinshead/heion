@@ -16,7 +16,7 @@ button {
 }
 
 div#wrap{
-    max-width:500px;
+    max-width:800px;
     position:center;
     background-color: white;
     margin:0 auto;
@@ -28,13 +28,16 @@ div#title{
     border: 1px solid white;
 }
 button#titleText{
-    line-height: 30px;
+    line-height: 50px;
     width: 70%;
     display: block;
     margin:0 auto;
     text-align: center;
     /*border: 2px solid #EEEEEE;*/
-    font-size: 20px;
+    font-size: 30px;
     outline-color: white;
     color: #222222;
+}
+button#location{
+    font-size: 20px;
 }
