@@ -48,7 +48,6 @@ function yHandler(){
     }
 }
 
-
 function init() {
     var diff = window.innerHeight - wrap.offsetHeight;
     addNextImage();
@@ -61,3 +60,4 @@ function init() {
 
 window.onload = init;
 window.onscroll = yHandler;
+setInterval(yHandler, 1000);
