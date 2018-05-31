@@ -48,16 +48,5 @@ function yHandler(){
     }
 }
 
-function init() {
-    var diff = window.innerHeight - wrap.offsetHeight;
-    addNextImage();
-    diff -= window.innerHeight - wrap.offsetHeight;
-    var numImages = window.innerHeight / diff;
-    for(var ii = 0; ii <= numImages; ++ii) {
-        addNextImage();
-    }
-}
-
-window.onload = init;
 window.onscroll = yHandler;
-setInterval(yHandler, 1000);
+setInterval(yHandler, 500);
