@@ -27,12 +27,21 @@ getMoreImages();
 // return if another image is available
 function addNextImage(){
     if(i < images.length - 1) {
-        wrap.innerHTML +=
-            '<div class="scrollingImageContainer">' +
-            '   <img class="scrollingImage" src=' + images[i]["url"] + ' onclick=" window.open(`' + images[i]["url"] + '`);return false;" >' +
-            '   <button id="location" onclick=" window.open(`' + images[i]["alt-url"] + '`);return false;">' + images[i]["location"] + '</button>' +
-            '   <br><br><br><br><br><br>' +
-            '</div>';
+        if(images[i]["isVideo"]) {
+            wrap.innerHTML +=
+                '<div class="scrollingImageContainer">' +
+                '   <iframe class="scrollingImage" width="1398" height="596" src="' + images[i]["url"] + '" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>' +
+                '   <button id="location" onclick=" window.open(`' + images[i]["alt-url"] + '`);return false;">' + images[i]["location"] + '</button>' +
+                '   <br><br><br><br><br><br>' +
+                '</div>';
+        } else {
+            wrap.innerHTML +=
+                '<div class="scrollingImageContainer">' +
+                '   <img class="scrollingImage" src=' + images[i]["url"] + ' onclick=" window.open(`' + images[i]["url"] + '`);return false;" >' +
+                '   <button id="location" onclick=" window.open(`' + images[i]["alt-url"] + '`);return false;">' + images[i]["location"] + '</button>' +
+                '   <br><br><br><br><br><br>' +
+                '</div>';
+        }
         i++;
     } else {
         getMoreImages();
@@ -49,4 +58,4 @@ function yHandler(){
 }
 
 window.onscroll = yHandler;
-setInterval(yHandler, 500);
+setInterval(yHandler, 200);

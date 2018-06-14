@@ -11,6 +11,18 @@
       "alt-url":"https://www.google.co.uk/maps/place/36%C2%B054'19.2%22S+174%C2%B031'32.7%22E/@-36.9052681,174.5246475,403m/data=!3m1!1e3!4m6!3m5!1s0x0:0x0!7e2!8m2!3d-36.9053218!4d174.5257507"
     },
     {
+      "location": "Australia, City a",
+      "url":"https://www.youtube.com/embed/nWeW3sCmD2k",
+      "isVideo":true,
+      "alt-url":"https://www.google.co.uk/maps/place/39%C2%B021'19.5%22S+174%C2%B010'05.3%22E/@-39.3537555,174.1531777,5285m/data=!3m1!1e3!4m6!3m5!1s0x0:0x0!7e2!8m2!3d-39.355402!4d174.1681301"
+    },
+    {
+      "location": "Australia, City b",
+      "url":"https://www.youtube.com/embed/nWeW3sCmD2k",
+      "isVideo":true,
+      "alt-url":"https://www.google.co.uk/maps/place/39%C2%B021'19.5%22S+174%C2%B010'05.3%22E/@-39.3537555,174.1531777,5285m/data=!3m1!1e3!4m6!3m5!1s0x0:0x0!7e2!8m2!3d-39.355402!4d174.1681301"
+    },
+    {
       "location": "Australia, City 3",
       "url":"images/3.png",
       "alt-url":"https://www.google.co.uk/maps/place/39%C2%B021'19.5%22S+174%C2%B010'05.3%22E/@-39.3537555,174.1531777,5285m/data=!3m1!1e3!4m6!3m5!1s0x0:0x0!7e2!8m2!3d-39.355402!4d174.1681301"
