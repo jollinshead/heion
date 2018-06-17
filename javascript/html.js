@@ -29,7 +29,7 @@ function addNextImage(){
     if(i < images.length - 1) {
         wrap.innerHTML +=
             '<div class="scrollingImageContainer">' +
-            '   <iframe class="scrollingImage" width="1398" height="596" src="' + images[i]["url"] + '" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>' +
+            '   <iframe class="scrollingImage"  allowTransparency="true" background="transparent" width="1398" height="596" src="' + images[i]["url"] + '" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>' +
             '   <button id="location" onclick=" window.open(`' + images[i]["alt-url"] + '`);return false;">' + images[i]["location"] + '</button>' +
             '   <br><br><br><br><br><br>' +
             '</div>';
